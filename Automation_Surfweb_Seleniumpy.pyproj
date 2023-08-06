@@ -22,6 +22,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Automation_Surfweb_Seleniumpy.py" />
+    <Compile Include="function.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="automove.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="web_driver.py">
       <SubType>Code</SubType>
     </Compile>
