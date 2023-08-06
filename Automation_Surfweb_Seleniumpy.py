@@ -1,9 +1,15 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 import time
+from web_driver import *
 
-driver = webdriver.Edge()
-driver.get("https://linkler.site/2Bnrf")
-button = driver.find_element(By.ID, "csubmit")
-button.click()
-time.sleep(100)
+
+#driver.get("https://linkler.site/2Bnrf")
+#button = driver.find_element(By.ID, "csubmit")
+#button.click()
+#time.sleep(100)
+
+### ----- Start automation
+
+# ----- Open Windown: UrbanVPN
+p = subprocess.Popen(["C:\\Program Files\\UrbanVPN\\bin\\urbanvpn-gui.exe"])
+# Must wait for urbanVPN to open
+p.wait()
