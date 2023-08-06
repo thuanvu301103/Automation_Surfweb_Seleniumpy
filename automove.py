@@ -22,6 +22,7 @@ def move_2 ():
     
     web_A.surf()
     # Then need to disable VPN
+    showwd ("UrbanVPN", 548, 155, 100, 100)
     pyautogui.moveTo (797, 533)
     pyautogui.leftClick()
 # ----- No else move for move 2
