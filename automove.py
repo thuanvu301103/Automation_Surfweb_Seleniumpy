@@ -1,3 +1,4 @@
+import pyautogui
 from function import *
 from web_driver import *
 
@@ -17,9 +18,9 @@ def move_1 (i: int):
 
 # ----- Move 2:
 def move_2 ():
-    web_A = web_driverA(1, ["csubmit"])
+    web_A = web_driverA(1)
     
-    A.surf()
+    web_A.surf()
     # Then need to disable VPN
     pyautogui.moveTo (797, 533)
     pyautogui.leftClick()
