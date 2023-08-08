@@ -28,6 +28,9 @@
     <Compile Include="automove.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="importmodule.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="web_driver.py">
       <SubType>Code</SubType>
     </Compile>
