@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.edge.options import Options
 import random
 import time
-
+from msedge.selenium_tools import Edge, EdgeOptions
 
 
 # ----- abtract class
@@ -17,8 +17,15 @@ class web_driver:
     # buttonid: List[string] - List of all button's ids
     def __init__(self, numacc):
         self.numacc = numacc
-        self.driver = webdriver.Edge()
-        # self.buttonid = buttonid
+        
+        options = EdgeOptions()
+        options.use_chromium = True
+        options.add_extension("E:\\Business\\Automation_Surfweb_Seleniumpy\\buster_captcha_solver_for_humans-0.7.2-an+fx.xpi")
+        self.driver = Edge(executable_path=r"E:\App setup\MicrosftWebDriver\MicrosoftWebDriver.exe", options = options)
+
+    def setupoptions (self):
+
+    
 
 # ----- first website: pubiza.com
 class web_driverA (web_driver):
