@@ -1,16 +1,11 @@
-import subprocess
-import time
+from importmodule import * 
 from function import *
 from automove import *
 
-### ----- Start automation
-
-# ----- Open Windown: UrbanVPN
-#p = subprocess.Popen(["C:\\Program Files\\UrbanVPN\\bin\\urbanvpn-gui.exe"])
-# Must wait for urbanVPN to open
-#p.wait()
+# ----- Open exeefile: UrbanVPN
+# runexe ("C:\\Program Files\\UrbanVPN\\bin\\urbanvpn-gui.exe")
 
 # ----- Start working with first 15 countries
 for i in range(15):
-    #move_1(i)
+    # move_1(i)
     move_2()

@@ -1,14 +1,10 @@
+from importmodule import *
 from function import *
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.edge.options import Options
-import random
-import time
-import subprocess
-import pyautogui
-import pyperclip
 from msedge.selenium_tools import Edge, EdgeOptions
 
 
@@ -17,20 +13,17 @@ class web_driver:
 
     # numacc: int - numbers of account website
     # driver: webdriver.Edge - webdriver
-    # buttonid: List[string] - List of all button's ids
-    def __init__(self, numacc):
+
+    def __init__(self, numacc, exepath):
+        # exepath: string -  webdriver dir
         self.numacc = numacc
-        
-        self.driver = Edge(executable_path=r"E:\App setup\MicrosftWebDriver\MicrosoftWebDriver.exe")
-        #options = EdgeOptions()
-        #options.use_chromium = True
-        #options.add_extension("E:\\Business\\Automation_Surfweb_Seleniumpy\\buster_captcha_solver_for_humans-0.7.2-an+fx.xpi")
-        #self.driver = Edge(executable_path=r"E:\App setup\MicrosftWebDriver\MicrosoftWebDriver.exe", options = options)
+        self.driver = Edge(executable_path = exepath)
 
 # ----- first website: pubiza.com
 class web_driverA (web_driver):
 
     def surf (self):
+
         for i in range (1, self.numacc + 1):
 
             # Open browser 1 to avoid recaptcha
@@ -46,7 +39,7 @@ class web_driverA (web_driver):
 
             # search link
             pyautogui.hotkey('alt', 'd') 
-            pyautogui.typewrite(link, intrval = 0.05)
+            pyautogui.typewrite(link, interval = 0.05)
             pyautogui.press('enter')
             
             # Click button 1: "1/2 GetLink"

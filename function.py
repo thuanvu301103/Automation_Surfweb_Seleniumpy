@@ -1,10 +1,15 @@
+from importmodule import *
 import win32gui, win32process, win32con
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.edge.options import Options
-import time
+
+# ----- for open exe file
+def runexe (exedir):
+    p = subprocess.Popen([exedir])
+    p.wait()
 
 # ----- for make sure window show up on the top
 def showwd(name, x, y, cx, cy):
