@@ -23,13 +23,10 @@ class web_driver:
 class web_driverA (web_driver):
 
     def surf (self):
-
         for i in range (1, self.numacc + 1):
 
             # Open browser 1 to avoid recaptcha
-            p = subprocess.Popen(["C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"])
-            p.wait()
-            time.sleep(2.5)
+            runexe ("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe")
             showwd ("New tab - Personal - Microsoft\u200b Edge",0,0, 1914, 1011)
 
             # Each account choose one link
@@ -41,26 +38,26 @@ class web_driverA (web_driver):
             pyautogui.hotkey('alt', 'd') 
             pyautogui.typewrite(link, interval = 0.05)
             pyautogui.press('enter')
-            
+            time.sleep(12)
+
             # Click button 1: "1/2 GetLink"
             pyautogui.moveTo (970, 577, 2)
             pyautogui.leftClick()
-            time.sleep(15)
-
+            time.sleep(12)
+           
+            # Get next link
             pyautogui.hotkey('alt', 'd')
             pyautogui.hotkey('ctrl', 'c')
             link = pyperclip.paste()
 
+            # Close browser 1
+            pyautogui.hotkey('ctrl', 'shift', 'w')
+
+            # Search link in webdriver (browser 2)
             try:
-                self.driver.get(link)
+                self.driver.get (link)
             except: continue
-            time.sleep(15)
- 
-            # Click button 1: "1/2 Get Link"
-            '''try:
-                button1 = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located((By.ID, "csubmit"))).click()
-            except: continue
-            print ("button 1 click")'''
+            time.sleep(12)
              
             # Click button 2-3: "SIRADAKi": "next-page-link page-link" / "Linke Git": "bb-sticky-el"
             button3 = None
@@ -72,7 +69,9 @@ class web_driverA (web_driver):
                     button3 = self.driver.find_element(By.CLASS_NAME, "next-page-link page-link")
                 except: 
                     button2.click()
-                    print ("button 2 click")
+                    #print ("button 2 click")
             button3.click()
-            print ("button 3 click")
+            #print ("button 3 click")
+
+            # Click button 4: 
             time.sleep(1000)
