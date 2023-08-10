@@ -1,6 +1,5 @@
 from importmodule import *
 from function import *
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -12,66 +11,58 @@ from msedge.selenium_tools import Edge, EdgeOptions
 class web_driver: 
 
     # numacc: int - numbers of account website
-    # driver: webdriver.Edge - webdriver
-
+    # exepath: string -  webdriver dir
     def __init__(self, numacc, exepath):
-        # exepath: string -  webdriver dir
         self.numacc = numacc
-        self.driver = Edge(executable_path = exepath)
+        self.exepath = exepath
 
 # ----- first website: pubiza.com
 class web_driverA (web_driver):
 
-    def surf (self):
-        for i in range (1, self.numacc + 1):
+    def surf (self, numacc):
 
-            # Open browser 1 to avoid recaptcha
-            runexe ("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe")
-            showwd ("New tab - Personal - Microsoft\u200b Edge",0,0, 1914, 1011)
+        # Each account choose one link
+        with open(f"E:\\Business\\src\\pubiza{numacc}.txt", "r") as file:
+            lines = file.read().splitlines()
+            link = random.choice(lines)
 
-            # Each account choose one link
-            with open(f"E:\\Business\\src\\pubiza{i}.txt", "r") as file:
-                lines = file.read().splitlines()
-                link = random.choice(lines)
+        # search link
+        pyautogui.hotkey('alt', 'd') 
+        pyautogui.typewrite(link, interval = 0.05)
+        pyautogui.press('enter')
+        time.sleep(12)
 
-            # search link
-            pyautogui.hotkey('alt', 'd') 
-            pyautogui.typewrite(link, interval = 0.05)
-            pyautogui.press('enter')
-            time.sleep(12)
-
-            # Click button 1: "1/2 GetLink"
-            pyautogui.moveTo (970, 577, 2)
-            pyautogui.leftClick()
-            time.sleep(12)
+        # Click button 1: "1/2 GetLink"
+        pyautogui.moveTo (970, 577, 2)
+        pyautogui.leftClick()
+        time.sleep(12)
            
-            # Get next link
-            pyautogui.hotkey('alt', 'd')
-            pyautogui.hotkey('ctrl', 'c')
-            link = pyperclip.paste()
+        # Get next link
+        pyautogui.hotkey('alt', 'd')
+        pyautogui.hotkey('ctrl', 'c')
+        link = pyperclip.paste()
 
-            # Close browser 1
-            pyautogui.hotkey('ctrl', 'shift', 'w')
+        # Close browser 1
+        pyautogui.hotkey('ctrl', 'shift', 'w')
 
-            # Search link in webdriver (browser 2)
-            try:
-                self.driver.get (link)
-            except: continue
-            time.sleep(12)
+        driver = Edge(executable_path = self.exepath)
+        # Search link in webdriver (browser 2)
+        driver.get (link)
+        time.sleep(12)
              
-            # Click button 2-3: "SIRADAKi": "next-page-link page-link" / "Linke Git": "bb-sticky-el"
-            button3 = None
-            while button3 == None:
-                try:
-                    button2 = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located((By.CLASS_NAME, "next-page-link page-link")))
-                except: continue
-                try:
-                    button3 = self.driver.find_element(By.CLASS_NAME, "next-page-link page-link")
-                except: 
-                    button2.click()
-                    #print ("button 2 click")
-            button3.click()
-            #print ("button 3 click")
+        # Click button 2-3: "SIRADAKi": "next-page-link page-link" / "Linke Git": "bb-sticky-el"
+        button3 = None
+        while button3 == None:
+            button2 = WebDriverWait(driver, 12).until(EC.presence_of_element_located((By.CLASS_NAME, "next-page-link page-link")))
+            button3 = driver.find_element(By.CLASS_NAME, "next-page-link page-link")
+            button2.click()
+        else: button3.click()
+        # print ("button 3 click")
 
-            # Click button 4: 
-            time.sleep(1000)
+        # Switch to new tab
+        driver.switch_to.window(self.driver.window_handles[1])
+
+        # Click button 4:
+        button4 = WebDriverWait(driver, 12).until(EC.presence_of_element_located((By.ID, "get_link_btn")))
+        button4.click()
+        time.sleep(12)

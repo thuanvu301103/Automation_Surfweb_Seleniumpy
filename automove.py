@@ -1,4 +1,4 @@
-from importmodule import pyautogui
+from importmodule import pyautogui, subprocess
 from function import *
 from web_driver import *
 
@@ -15,17 +15,28 @@ def move_1 (i: int):
     # Run VPN (click Run)
     pyautogui.moveTo (797, 533)
     pyautogui.leftClick()
+
     time.sleep(12)
 
 # ----- no else move for move 1
 
-# ----- Move 2:
+# ----- move 2:
 def move_2 ():
 
-    web_A = web_driverA(1, "E:\App setup\MicrosftWebDriver\MicrosoftWebDriver.exe")
-    web_A.surf()
+    # Open browser 1 to avoid recaptcha
+    p1 = subprocess.Popen(["C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"])
+    p1.wait()
+    time.sleep(2)
+    showwd ('New tab - Personal - Microsoft\u200b Edge',0,0, 1914, 1011)
 
-    # Then need to disable VPN
+    # Surf web
+    web_A = web_driverA(1, "E:\App setup\MicrosftWebDriver\MicrosoftWebDriver.exe")
+    for i in range (1, web_A.numacc + 1):
+        try:
+            web_A.surf(i)
+        except: continue
+
+    # Disable VPN
     showwd ("UrbanVPN", 548, 155, 100, 100)
     pyautogui.moveTo (797, 533)
     pyautogui.leftClick()
