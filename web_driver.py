@@ -20,7 +20,7 @@ class web_driver:
 class web_driverA (web_driver):
 
     def surf (self, numacc):
-
+        
         # Each account choose randomly one link
         with open(f"E:\\Business\\src\\pubiza{numacc}.txt", "r") as file:
             lines = file.read().splitlines()
@@ -30,12 +30,12 @@ class web_driverA (web_driver):
         pyautogui.hotkey('alt', 'd') 
         pyautogui.typewrite(link, interval = 0.05)
         pyautogui.press('enter')
-        time.sleep(10)
+        time.sleep(10.2)
 
         # Click button 1: "1/2 GetLink"
         pyautogui.moveTo (970, 577, 2)
         pyautogui.leftClick()
-        time.sleep(10)
+        time.sleep(10.2)
            
         # Get next link
         pyautogui.hotkey('alt', 'd')
@@ -44,20 +44,26 @@ class web_driverA (web_driver):
 
         # Close browser 1
         pyautogui.hotkey('ctrl', 'shift', 'w')
-
+        
         # Search link in webdriver (browser 2)
         driver = Edge(executable_path = self.exepath)
         driver.get (link)
         time.sleep(10)
+        
              
         # Click button 2-3: "SIRADAKi": "next-page-link page-link" / "Linke Git": "bb-sticky-el"
         button3 = None
         while button3 == None:
-            button2 = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "next-page-link page-link")))
-            button3 = driver.find_element(By.CLASS_NAME, "next-page-link page-link")
-            button2.click()
-        else: button3.click()
-        # print ("button 3 click")
+            button2 = WebDriverWait(driver, 12).until(EC.presence_of_element_located((By.CLASS_NAME, "next-page-link page-link")))
+            button2 = driver.find_element(By.CLASS_NAME, "next-page-link page-link")
+            try:
+                button3 = driver.find_element(By.CLASS_NAME, "bb-sticky-el")
+            except:
+                button2.click()
+                print ("click button 2")
+        else: 
+            button3.click()
+            print ("click button 3")  
 
         # Switch to new tab
         driver.switch_to.window(self.driver.window_handles[1])
