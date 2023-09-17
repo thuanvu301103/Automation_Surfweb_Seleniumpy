@@ -19,6 +19,18 @@ class web_driver:
 # ----- first website: pubiza.com
 class web_driverA (web_driver):
 
+    # ----- search link
+    def get_link (self, link, time_intervel = 0):
+        pyautogui.hotkey('alt', 'd') 
+        pyautogui.typewrite(link, interval = time_intervel)
+        pyautogui.press('enter')
+
+    # ----- for Time_restrict when load link:
+    def web_wait (self, time):
+
+        time.sleep(10.2)
+
+    # ----- for surfing web
     def surf (self, numacc):
         
         # Each account choose randomly one link
@@ -27,9 +39,7 @@ class web_driverA (web_driver):
             link = random.choice(lines)
 
         # search link
-        pyautogui.hotkey('alt', 'd') 
-        pyautogui.typewrite(link, interval = 0.05)
-        pyautogui.press('enter')
+        self.get_link (link, 0.05)
         time.sleep(10.2)
 
         # Click button 1: "1/2 GetLink"

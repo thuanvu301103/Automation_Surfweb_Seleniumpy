@@ -6,7 +6,7 @@ from web_driver import *
 def move_1 (i: int):
 
     # i: int - variaty in each move 
-    showwd ("UrbanVPN", 548, 155, 100, 100)
+    function.showwd ("UrbanVPN", 548, 155, 100, 100)
 
     # Move mouse to choose country
     pyautogui.moveTo (1213, 293 + (i+1)*33)
